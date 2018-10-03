@@ -1,4 +1,10 @@
-const fs = require('fs')
+const fs = require("fs")
+
+
+let temp = fs.writeFile("http://jservice.io/api/category?id=42")
+
+console.log(temp)
+
 
 fetch("http://jservice.io/api/category?id=42")
 fs.writeFile("categories.json")
