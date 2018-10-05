@@ -1,51 +1,11 @@
-let fs = require("fs")
-var fetch = require("node-fetch");
+const HTTPClient = require('./httpClient.js');
+const fs = require('fs');
+let url = 'http://jservice.io/api/category?id=';
+const categoriesArray = [777, 780, 21, 105, 25, 306, 136, 680, 309, 2537, 1470, 18065, 6145, 9646, 15090, 499, 42, 7, 78, 211, 420, 176];
 
+const categoryPromises = categoriesArray.map(id => HTTPClient(url + id))
 
-let categoryOne = fetch("http://jservice.io/api/category?id=42")
-    .then(res => res.json())
-    .then(data => {
-        let newData = data
-        console.log(newData)
-    })
-fs.writeFileSync('categories.json', categoryOne)
-
-let categoryTwo = fetch("http://jservice.io/api/category?id=37")
-    .then(res => res.json())
-    .then(data => {
-        let newData = data
-        console.log(newData)
-    })
-fs.writeFileSync('categories.json', categoryTwo)
-
-let categoryThree = fetch("http://jservice.io/api/category?id=139")
-    .then(res => res.json())
-    .then(data => {
-        let newData = data
-        console.log(newData)
-    })
-fs.writeFileSync('categories.json', categoryThree)
-
-let categoryFour = fetch("http://jservice.io/api/category?id=1079")
-    .then(res => res.json())
-    .then(data => {
-        let newData = data
-        console.log(newData)
-    })
-fs.writeFileSync('categories.json', categoryFour)
-
-let categoryFive = fetch("http://jservice.io/api/category?id=777")
-    .then(res => res.json())
-    .then(data => {
-        let newData = data
-        console.log(newData)
-    })
-fs.writeFileSync('categories.json', categoryFive)
-
-let categorySix = fetch("http://jservice.io/api/category?id=539")
-    .then(res => res.json())
-    .then(data => {
-        let newData = data
-        console.log(newData)
-    })
-fs.writeFileSync('categories.json', categorySix)
+Promise.all(categoryPromises)
+    .then(categories =>
+        fs.writeFileSync('./categories.json', JSON.stringify(categories))
+    )
